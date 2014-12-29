@@ -1,0 +1,26 @@
+.template {
+  display: none;
+}
+
+.player {
+  position: relative;
+  width: 800px;
+  height: 450px;
+  /* background-color: #696969; */
+}
+
+.video {
+  width: 800px;
+  height: 450px;
+  z-index: 1;
+}
+
+.chat {
+  position: absolute;
+  right: 0;
+  width: 300px;
+  height: 450px;
+  opacity: 0.7;
+  z-index: 2;
+}
+
