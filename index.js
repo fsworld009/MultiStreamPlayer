@@ -33,7 +33,7 @@ var msp = function(){
 }();
 
 $(document).ready(function(){
-    jqueryui_resizable_iframefix();
+    // jqueryui_resizable_iframefix();
     $("#player1").draggable().resizable();
-    $(".chat").resizable({containment: "parent",iframeFix: true,handles:'s,w,sw'});
+    $(".chat").draggable({containment: "parent", iframeFix: true}).resizable({containment: "parent",iframeFix: true,handles:'s,w,sw'});
 });
