@@ -3,50 +3,41 @@
   <head>
     <meta charset="UTF-8"/>
     <title>Multi Stream Player</title>
+    <link href="http://code.jquery.com/ui/1.11.2/themes/redmond/jquery-ui.css" rel="stylesheet">
     <link href="index.css" rel="stylesheet">
   </head>
   <body>
+    <div class="player-container">
 
-    <div class="player">
-      <!-- <iframe class="video" src="http://www.twitch.tv/boy20330/embed?auto_play=false" frameborder="0" scrolling="no"></iframe> -->
-      <object class="video" type="application/x-shockwave-flash" 
-        id="live_embed_player_flash" 
-        data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=boy20330" 
-        gcolor="#000000">
-  <param  name="allowFullScreen" value="true" />
-  <param  name="allowScriptAccess" value="always" />
-  <param  name="allowNetworking" value="all" />
-  <param  name="wmode" value="transparent" />
-  <param  name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
-  <param  name="flashvars" value="hostname=www.twitch.tv&channel=boy20330&auto_play=false&start_volume=50" />
-</object>
+      <div id="player1" class="player">
+        <!-- <iframe class="video" src="http://www.twitch.tv/boy20330/embed?auto_play=false" frameborder="0" scrolling="no"></iframe> -->
+        <div class="stream-barrier"></div>
+        <div class="stream">
+          <object class="embed" type="application/x-shockwave-flash" 
+            id="live_embed_player_flash" 
+            data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=boy20330" 
+            gcolor="#000000">
+            <param  name="allowFullScreen" value="true" />
+            <param  name="allowScriptAccess" value="always" />
+            <param  name="allowNetworking" value="all" />
+            <param  name="wmode" value="transparent" />
+            <param  name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
+            <param  name="flashvars" value="hostname=www.twitch.tv&channel=boy20330&auto_play=false&start_volume=50" />
+          </object>
+        </div>
 
-      <iframe class="chat" src="http://www.twitch.tv/boy20330/chat?popout=" frameborder="0" scrolling="no"></iframe>
-    </div>
-    <div class="template">
-      
-<object type="application/x-shockwave-flash" 
-        height="450" 
-        width="800" 
-        id="live_embed_player_flash" 
-        data="" 
-        bgcolor="#000000">
-  <param  name="allowFullScreen" 
-          value="true" />
-  <param  name="allowScriptAccess" 
-          value="always" />
-  <param  name="allowNetworking" 
-          value="all" />
-  <param  name="movie" 
-          value="http://www.twitch.tv/widgets/live_embed_player.swf" />
-  <param  name="flashvars" 
-          value="hostname=www.twitch.tv&channel=boy20330&auto_play=false&start_volume=50" />
-</object>
-iframe src="" frameborder="0" scrolling="no" height="378" width="620"></iframe>
+        
 
-    </div>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <div class="chat">
+          <iframe class="embed" src="http://www.twitch.tv/boy20330/chat?popout=" frameborder="0" scrolling="no"></iframe>
+        </div>
+      </div>
+
+      <div class="template">
+      </div>
+    </div>    
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
     <script src="index.js"></script>
   </body>
   

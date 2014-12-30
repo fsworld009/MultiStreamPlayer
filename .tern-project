@@ -1,0 +1,13 @@
+ {
+    "libs": [
+        "browser",
+        "jquery",
+        "angularjs"
+    ],
+    "loadEagerly": [
+    ],
+    "plugins": {
+        "node": {
+    }
+    }
+}
