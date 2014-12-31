@@ -51,7 +51,7 @@ body {
 .chat {
   position: absolute;
   background-color: #87CEEB; /* make top border more clear*/
-  right: 0;
+  right: 3px;
   top: 0;
   width: 30%;
   height: 95%;

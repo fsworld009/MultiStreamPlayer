@@ -69,17 +69,22 @@ function loadStreamAndChat(){
     }
 }
 
-function setStreamBarrier(){
+function setStreamBarrier(ev){
+    var player_controll_panel_size = parseInt($(".player-container").attr("data-player-controll-panel-size"));
+    var player_size = parseInt($(".stream").height());
+    $(".stream-barrier").css("height", (player_size - player_controll_panel_size) + "px");
+    console.log(player_controll_panel_size);
     console.log($(".stream").height());
 }
 
 
 $(document).ready(function(){
     // jqueryui_resizable_iframefix();
+    setStreamBarrier();
     chatUiEvents();
     chatOpacity();
     loadStreamAndChat();
-    setStreamBarrier();
+    $(window).resize(setStreamBarrier);
 });
 
 
