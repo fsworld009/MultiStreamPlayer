@@ -1,3 +1,13 @@
+//http://save-coco.blogspot.com/2010/02/javascriptgetexample.html
+function getQueryString( paramName ){
+    paramName = paramName .replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]").toLowerCase();
+    var reg = "[\\?&]"+paramName +"=([^&#]*)";
+    var regex = new RegExp( reg );
+    var regResults = regex.exec( window.location.href.toLowerCase() );
+    if( regResults === null ) return "";
+    else return regResults [1];
+}
+
 
 //iframeFix patch for resizable elements
 //http://stackoverflow.com/a/13473569/3973896
@@ -13,17 +23,6 @@ function resizable_start(event, ui){
 function resizable_stop(event, ui){
     $('.ui-resizable-iframeFix').remove();
 }
-
-var msp = function(){
-    var players = [];
-
-    function createPlayer(params){
-
-    }
-
-    return {};
-}();
-
 
 function chatOpacity(){
     var chat = $(".chat");
@@ -48,13 +47,39 @@ function chatOpacity(){
         chat_div.css("display","none");
     });
 }
+
+function chatUiEvents(){
+    $(".chat").draggable({containment: "parent", iframeFix: true}).resizable({containment: "parent",handles:'e,s,w,ew,sw',"start":resizable_start,"stop":resizable_stop});
+}
     
+function loadStreamAndChat(){
+    var channel_id = getQueryString("channel");
+    if(channel_id !== ""){
+        $(".embed").each(function (index, element){
+            console.log(element.nodeName.toLowerCase());
+            if( element.nodeName.toLowerCase() === "iframe"){
+                $(element).attr("src", $(element).attr("data-src").replace("\{id\}",channel_id));
+            }else{
+                //twitch object
+                $(element).attr("data", $(element).attr("data-data").replace("\{id\}",channel_id));
+                var flashvars = $(element).find('param[name="flashvars"]');
+                flashvars.attr("value", flashvars.attr("data-value").replace("\{id\}",channel_id));
+            }
+        });
+    }
+}
+
+function setStreamBarrier(){
+    console.log($(".stream").height());
+}
+
 
 $(document).ready(function(){
     // jqueryui_resizable_iframefix();
-    $("#player1").draggable().resizable();
-    $(".chat").draggable({containment: "parent", iframeFix: true}).resizable({containment: "parent",handles:'e,s,w,ew,sw',"start":resizable_start,"stop":resizable_stop});
+    chatUiEvents();
     chatOpacity();
+    loadStreamAndChat();
+    setStreamBarrier();
 });
 
 
