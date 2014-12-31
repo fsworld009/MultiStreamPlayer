@@ -30,7 +30,7 @@ function chatOpacity(){
     var chat_embed = chat.find(".embed");
 
     var stream = $(".stream");
-    stream.on("mouseout",function(ev){
+    chat_div.on("mouseover",function(ev){
         // if(ev.target === this){
             chat.css("opacity","0.7");
         // }
@@ -45,6 +45,12 @@ function chatOpacity(){
         console.log("click");
         chat.css("opacity","1");
         chat_div.css("display","none");
+    });
+
+    $("body").on("mouseleave",function(ev){
+        chat.css("opacity",0);
+        chat_div.css("display","block");
+
     });
 }
 
