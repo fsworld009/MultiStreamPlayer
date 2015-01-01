@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Multi Stream Player</title>
+    <link href="http://code.jquery.com/ui/1.11.2/themes/redmond/jquery-ui.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="menu">
+        <label for="channel_id">Channel ID</label>
+        <input name="channel_id" type="text" value=""/>
+      </div>
+      
+      <div class="about"></div>
+    </div>
+    <iframe class="template" data-src="http://www.twitch.tv/{id}/chat?popout=" frameborder="0" scrolling="no"></iframe>
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+  
+</html>
