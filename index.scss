@@ -1,15 +1,24 @@
+@mixin uiframe-border ($bg-color, $bd-color) {
+  background-color: $bg-color; /* make top border more clear*/
+  border-width: 10px 3px 3px 3px;
+  border-style: double solid solid solid;
+  border-color: $bd-color;
+}
 
-html {
+@mixin fillout(){
   width: 100%;
   height: 100%;
+}
+
+html {
+  @include fillout();
 
 }
 body {
   background-color: #696969;
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
+  @include fillout();
 }
 
 .template {
@@ -18,22 +27,26 @@ body {
 
 .main-container {
   position: relative;
-  width: 100%;
-  height: 100%;
+  @include fillout();
 }
 
 .menu {
   position: absolute;
+  left: 40%;
+  top: 40%;
   width: 360px;
   height: 200px;
-  background-color: #B0E0E6;
+  @include uiframe-border (#FF6347,#000);
+  z-index: 1;
+}
+
+.menu-container {
+  @include fillout();
+  background-color: #FFC0CB;
 }
 
 .player {
-  position: absolute;
-  border-width: 10px 3px 3px 3px;
-  border-style: double solid solid solid;
-  border-color: #000;
+  @include uiframe-border (#B0E0E6,#000);
 }
 
 

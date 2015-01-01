@@ -24,38 +24,40 @@ function resizable_stop(event, ui){
     $('.ui-resizable-iframeFix').remove();
 }
 
-function chatOpacity(){
-    var chat = $(".chat");
-    var chat_div = chat.find(".chat-barrier");
-    var chat_embed = chat.find(".embed");
+// function chatOpacity(){
+//     var chat = $(".chat");
+//     var chat_div = chat.find(".chat-barrier");
+//     var chat_embed = chat.find(".embed");
 
-    var stream = $(".stream");
-    chat_div.on("mouseover",function(ev){
-        // if(ev.target === this){
-            chat.css("opacity","0.7");
-        // }
-    });
-    stream.on("mouseover",function(ev){
-        // if(ev.target === this){
-            chat.css("opacity","0");
-            chat_div.css("display","block");
-        // }
-    });
-    chat_div.on("click",function(ev){
-        console.log("click");
-        chat.css("opacity","1");
-        chat_div.css("display","none");
-    });
+//     var stream = $(".stream");
+//     chat_div.on("mouseover",function(ev){
+//         // if(ev.target === this){
+//             chat.css("opacity","0.7");
+//         // }
+//     });
+//     stream.on("mouseover",function(ev){
+//         // if(ev.target === this){
+//             chat.css("opacity","0");
+//             chat_div.css("display","block");
+//         // }
+//     });
+//     chat_div.on("click",function(ev){
+//         console.log("click");
+//         chat.css("opacity","1");
+//         chat_div.css("display","none");
+//     });
 
-    $("body").on("mouseleave",function(ev){
-        chat.css("opacity",0);
-        chat_div.css("display","block");
+//     $("body").on("mouseleave",function(ev){
+//         chat.css("opacity",0);
+//         chat_div.css("display","block");
 
-    });
-}
+//     });
+// }
 
-function chatUiEvents(){
-    $(".chat").draggable({containment: "parent", iframeFix: true}).resizable({containment: "parent",handles:'e,s,w,ew,sw',"start":resizable_start,"stop":resizable_stop});
+function mainUiEvents(){
+    // $(".main").draggable({containment: "parent", iframeFix: true}).resizable({containment: "parent",handles:'e,s,w,ew,sw',"start":resizable_start,"stop":resizable_stop});
+    $(".menu").draggable({containment: "parent"}).resizable({containment: "parent",handles:'e,s,w,ew,sw'});
+    $(".menu").find("button").button();
 }
     
 
