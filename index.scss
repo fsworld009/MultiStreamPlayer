@@ -14,6 +14,7 @@ html {
   @include fillout();
 
 }
+
 body {
   background-color: #696969;
   margin: 0;
@@ -46,7 +47,17 @@ body {
 }
 
 .player {
-  @include uiframe-border (#B0E0E6,#000);
+  @include uiframe-border (#00CD66,#000);
+  position: absolute;
+  /* hard-coded now, these will be customized by user */
+  width: 640px;
+  height: 360px;
+  z-index: 2;
+  left: 10px;
+  top: 10px;
 }
 
 
+.embed {
+  @include fillout();
+}

@@ -62,7 +62,6 @@ function loadStreamAndChat(){
     var channel_id = getQueryString("channel");
     if(channel_id !== ""){
         $(".embed").each(function (index, element){
-            console.log(element.nodeName.toLowerCase());
             if( element.nodeName.toLowerCase() === "iframe"){
                 $(element).attr("src", $(element).attr("data-src").replace("\{id\}",channel_id));
             }else{
@@ -79,8 +78,6 @@ function setStreamBarrier(ev){
     var player_controll_panel_size = parseInt($(".player-container").attr("data-player-controll-panel-size"));
     var player_size = parseInt($(".stream").height());
     $(".stream-barrier").css("height", (player_size - player_controll_panel_size) + "px");
-    console.log(player_controll_panel_size);
-    console.log($(".stream").height());
 }
 
 

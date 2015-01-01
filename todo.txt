@@ -1,0 +1,8 @@
+player.html
+on window size change -> prevent chat div from out of bound
+
+index.html:
+when click on a div, set its z-index to highest
+refresh prompt
+fix window size?
+prompt on refresh

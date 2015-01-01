@@ -12,6 +12,7 @@ function getQueryString( paramName ){
 //iframeFix patch for resizable elements
 //http://stackoverflow.com/a/13473569/3973896
 function resizable_start(event, ui){
+    console.log("asdsa");
     $('<div class="ui-resizable-iframeFix" style="background: #fff;">&nbsp;</div>')
     .css({
         width:'100%', height: '100%',
@@ -53,17 +54,56 @@ function resizable_stop(event, ui){
 
 //     });
 // }
+var multi_stream_player = function (){
+    var player_id = 0;
+    function parseChannelId(jq, channel_id, data_attr, attr){
+        jq.attr( attr, jq.attr(data_attr).replace("\{id\}",channel_id).toLowerCase());
+        jq.removeAttr(data_attr);
+    }
 
-function mainUiEvents(){
-    // $(".main").draggable({containment: "parent", iframeFix: true}).resizable({containment: "parent",handles:'e,s,w,ew,sw',"start":resizable_start,"stop":resizable_stop});
-    $(".menu").draggable({containment: "parent"}).resizable({containment: "parent",handles:'e,s,w,ew,sw'});
-    $(".menu").find("button").button();
-}
-    
+    function setPlayerId(jq){
+        player_id++;
+        jq.attr("id","player" + player_id);
+    }
+
+    function addPlayer(channel_id){
+        var new_player = $(".template").clone().attr("class","player");
+        console.log(new_player[0]);
+        parseChannelId(new_player.children().eq(0), channel_id, "data-src", "src");
+        setPlayerId(new_player);
+        setPlayerEvents(new_player);
+        $(".main-container").append(new_player);
+    }
+
+    function setPlayerEvents(jq){
+        jq.draggable({
+            containment: "parent",
+            iframeFix: true}
+        ).resizable({
+            containment: "parent",
+            handles: 'e,s,w,ew,sw',
+            "start": resizable_start,
+            "stop": resizable_stop
+        });
+    }
+
+    function mainUiEvents(){
+        $(".menu").draggable({containment: "parent"}).resizable({containment: "parent",handles:'e,s,w,ew,sw'});
+        $(".menu").find("button").button();
+
+        $("#menu-add").on("click",function (ev){
+            addPlayer($("#menu-channel-id").val());
+        });
+    }
+
+    return {
+        init: mainUiEvents
+    };
+}(); 
 
 
 $(document).ready(function(){
-    mainUiEvents();
+    multi_stream_player.init();
 });
 
 

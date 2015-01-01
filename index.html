@@ -11,14 +11,16 @@
       <div class="menu">
         <div class="menu-container">
           <label for="channel_id">Channel ID</label>
-          <input name="channel_id" type="text" value=""/>
-          <button>Add</button>
+          <input id="menu-channel-id" name="channel_id" type="text" value=""/>
+          <button id="menu-add">Add</button>
         </div>
       </div>
       
       <div class="about"></div>
     </div>
-    <iframe class="template" data-src="http://www.twitch.tv/{id}/chat?popout=" frameborder="0" scrolling="no"></iframe>
+    <div class="template">
+      <iframe class="embed" data-src="twitch.html?channel={id}" frameborder="0" scrolling="no"></iframe>
+    </div>
     <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
     <script src="index.js"></script>
