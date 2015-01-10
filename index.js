@@ -66,12 +66,19 @@ var multi_stream_player = function (){
         jq.attr("id","player" + player_id);
     }
 
+    function setPlayerPos(player, x, y, width, height){
+        player.css("left",x + "px");
+        player.css("top",y + "px");
+        player.css("width",width + "px");
+        player.css("height",height + "px");
+    }
+
     function addPlayer(channel_id){
         var new_player = $(".template").clone().attr("class","player");
-        console.log(new_player[0]);
         parseChannelId(new_player.children().eq(0), channel_id, "data-src", "src");
         setPlayerId(new_player);
         setPlayerEvents(new_player);
+        setPlayerPos(new_player, $("#menu-player-x").val(), $("#menu-player-y").val(), $("#menu-player-width").val(), $("#menu-player-height").val());
         $(".main-container").append(new_player);
     }
 
@@ -92,7 +99,7 @@ var multi_stream_player = function (){
         $(".menu").find("button").button();
 
         $("#menu-add").on("click",function (ev){
-            addPlayer($("#menu-channel-id").val());
+            addPlayer($("#menu-channel-url").val()); //replaced with parseUrl() later
         });
     }
 
