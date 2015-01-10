@@ -109,13 +109,11 @@ var multi_stream_player = function (){
             height: player.css("height")
             //z-index
         });
-        console.log(players_json.players);
     }
 
     function appendPlayerList(player){
         var player_list = $("#menu-players");
         player_list.append('<option value="' + player.attr("id") + '">' + player.attr("data-channel") + '</option>');
-        console.log(players_json);
     }
 
     function updateMenuJSON(){
@@ -135,7 +133,6 @@ var multi_stream_player = function (){
 
     function getPlayerInfo(player_id){
         var player = $("#"+player_id);
-        console.log(player.attr("data-channel"));
 
 
         $("#menu-channel-url").val( player.attr("data-channel"));
@@ -145,13 +142,36 @@ var multi_stream_player = function (){
         $("#menu-player-height").val( player.css("height").replace("px",""));
     }
 
-    function mainUiEvents(){
-        $("#menu-update")[0].disabled = true;
-        $("#menu-remove")[0].disabled = true;
+    function menuButtonControl(mode){
+        switch(mode){
+        case "add":
+            $("#menu-add").button("option","disabled",false);
+            $("#menu-update").button("option","disabled",true);
+            $("#menu-remove").button("option","disabled",true);
+            return;
+        case "update":
+            $("#menu-add").button("option","disabled",true);
+            $("#menu-update").button("option","disabled",false);
+            $("#menu-remove").button("option","disabled",false);
+            return;
+        case "multiple_selection":
+           // 
+        }
+    }
 
+    function clearMenuOptions(){
+        $("#menu-channel-url").val("");
+        $("#menu-player-x").val("10");
+        $("#menu-player-y").val("10");
+        $("#menu-player-width").val("640");
+        $("#menu-player-height").val("360");
+    }
+
+    function mainUiEvents(){
         
         $(".menu").draggable({containment: "parent"});//.resizable({containment: "parent",handles:'e,s,w,ew,sw'});
         $(".menu").find("button").button();
+        menuButtonControl("add");
 
         $("#menu-add").on("click",function (ev){
             var new_player = addPlayer($("#menu-channel-url").val()); //replace with parseUrl() later
@@ -160,9 +180,17 @@ var multi_stream_player = function (){
         });
 
         $("#menu-players").on("click", function (ev){
-            console.log($(ev.target).prop("tagName").toLowerCase());
             var option = $(ev.target);
+            if(ev.target.value === "new_player"){
+                clearMenuOptions();
+                menuButtonControl("add");
+                return;
+            }
+
+
+            
             if( option.prop("tagName").toLowerCase() === "option"){
+                menuButtonControl("update");
                 getPlayerInfo(option.val());
             }
         });
