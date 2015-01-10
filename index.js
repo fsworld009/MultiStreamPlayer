@@ -199,6 +199,11 @@ var multi_stream_player = function (){
 
     }
 
+    function removePlayer(id){
+        $("#"+id).remove();
+        menu.players.find('[value="' + id + '"]').remove();
+    }
+
     function mainUiEvents(){
         
         $(".menu").draggable({containment: "parent"});//.resizable({containment: "parent",handles:'e,s,w,ew,sw'});
@@ -229,6 +234,10 @@ var multi_stream_player = function (){
 
         menu.update.on("click", function(ev){
             updatePlayer(menu.update_id.val(), menu.channel_url.val(),menu.x.val(), menu.y.val(), menu.width.val(), menu.height.val());
+        });
+
+        menu.remove.on("click", function(ev){
+            removePlayer(menu.update_id.val());
         });
 
         
