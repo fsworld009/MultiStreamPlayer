@@ -56,6 +56,7 @@ function resizable_stop(event, ui){
 // }
 var multi_stream_player = function (){
     var player_id = 0;
+    var players_json = {players: []};
     function parseChannelId(jq, channel_id, data_attr, attr){
         jq.attr( attr, jq.attr(data_attr).replace("\{id\}",channel_id).toLowerCase());
         jq.removeAttr(data_attr);
@@ -67,6 +68,7 @@ var multi_stream_player = function (){
     }
 
     function setPlayerPos(player, x, y, width, height){
+        //need error checking
         player.css("left",x + "px");
         player.css("top",y + "px");
         player.css("width",width + "px");
@@ -76,10 +78,12 @@ var multi_stream_player = function (){
     function addPlayer(channel_id){
         var new_player = $(".template").clone().attr("class","player");
         parseChannelId(new_player.children().eq(0), channel_id, "data-src", "src");
+        new_player.attr("data-channel",channel_id);
         setPlayerId(new_player);
         setPlayerEvents(new_player);
         setPlayerPos(new_player, $("#menu-player-x").val(), $("#menu-player-y").val(), $("#menu-player-width").val(), $("#menu-player-height").val());
         $(".main-container").append(new_player);
+        return new_player;
     }
 
     function setPlayerEvents(jq){
@@ -94,17 +98,52 @@ var multi_stream_player = function (){
         });
     }
 
+    function appendPlayerJSON(player){
+        players_json.players.push({
+            id: player.attr("id"),
+            //site:
+            channel: player.attr("data-channel"),
+            x: player.css("left"),
+            y: player.css("top"),
+            width: player.css("width"),
+            height: player.css("height")
+        });
+        console.log(players_json.players);
+    }
+
+    function appendPlayerList(player){
+        var player_list = $("#menu-players");
+        player_list.append('<option value="' + player.attr("id") + '">' + player.attr("data-channel") + '</option>');
+        console.log(players_json);
+    }
+
+    function updateMenuJSON(){
+        var menu = $(".menu");
+        players_json.menu = {
+            x: menu.css("left"),
+            y: menu.css("top")
+        };
+
+    }
+
+    function init(){
+        updateMenuJSON();
+        mainUiEvents();
+    }
+
     function mainUiEvents(){
-        $(".menu").draggable({containment: "parent"}).resizable({containment: "parent",handles:'e,s,w,ew,sw'});
+        $(".menu").draggable({containment: "parent"});//.resizable({containment: "parent",handles:'e,s,w,ew,sw'});
         $(".menu").find("button").button();
 
         $("#menu-add").on("click",function (ev){
-            addPlayer($("#menu-channel-url").val()); //replaced with parseUrl() later
+            var new_player = addPlayer($("#menu-channel-url").val()); //replace with parseUrl() later
+            appendPlayerJSON(new_player);
+            appendPlayerList(new_player);
         });
     }
 
     return {
-        init: mainUiEvents
+        init: init
     };
 }(); 
 
