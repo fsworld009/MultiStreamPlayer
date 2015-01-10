@@ -67,7 +67,8 @@ var multi_stream_player = function (){
         add: $("#menu-add"),
         update: $("#menu-update"),
         remove: $("#menu-remove"),
-        players: $("#menu-players")
+        players: $("#menu-players"),
+        update_id: $("#menu-update-id")
     };
 
     
@@ -154,6 +155,7 @@ var multi_stream_player = function (){
         menu.y.val( player.css("top").replace("px",""));
         menu.width.val( player.css("width").replace("px",""));
         menu.height.val( player.css("height").replace("px",""));
+        menu.update_id.val( player.attr("id") );
     }
 
     function menuButtonControl(mode){
@@ -179,6 +181,14 @@ var multi_stream_player = function (){
         menu.y.val("10");
         menu.width.val("640");
         menu.height.val("360");
+    }
+
+    function updatePlayer(id, channel_id, x, y, width, height){
+        var player = $("#"+id);
+        console.log(player[0]);
+        //change channel url
+        setPlayerPos(player, x,y,width,height);
+
     }
 
     function mainUiEvents(){
@@ -209,6 +219,10 @@ var multi_stream_player = function (){
             }
         });
 
+        menu.update.on("click", function(ev){
+            updatePlayer(menu.update_id.val(), menu.channel_url.val(),menu.x.val(), menu.y.val(), menu.width.val(), menu.height.val());
+        });
+
         
     }
 
@@ -216,7 +230,6 @@ var multi_stream_player = function (){
         init: init
     };
 }(); 
-
 
 $(document).ready(function(){
     multi_stream_player.init();
