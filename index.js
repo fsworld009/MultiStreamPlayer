@@ -74,7 +74,7 @@ var multi_stream_player = function (){
     
     function parseChannelId(jq, channel_id, data_attr, attr){
         jq.attr( attr, jq.attr(data_attr).replace("\{id\}",channel_id).toLowerCase());
-        jq.removeAttr(data_attr);
+        // jq.removeAttr(data_attr);
     }
 
     function setPlayerId(jq){
@@ -185,9 +185,17 @@ var multi_stream_player = function (){
 
     function updatePlayer(id, channel_id, x, y, width, height){
         var player = $("#"+id);
-        console.log(player[0]);
         //change channel url
+        var old_channel = player.attr("data-channel");
+        if(channel_id !== old_channel) {
+            parseChannelId(player.children().eq(0), channel_id, "data-src", "src");
+            menu.players.find('[value="' + id + '"]').text(channel_id);
+            player.attr("data-channel",channel_id);
+
+        }
         setPlayerPos(player, x,y,width,height);
+
+        // updatePlayerJSON(player);
 
     }
 

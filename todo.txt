@@ -8,3 +8,5 @@ refresh prompt
 parse channel url
 save z-index in json
 handle multi-selection for removing multiple channels
+
+update&remove channel: update JSON as also
