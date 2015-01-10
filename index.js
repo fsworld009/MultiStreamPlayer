@@ -97,6 +97,7 @@ var multi_stream_player = function (){
         setPlayerId(new_player);
         setPlayerEvents(new_player);
         setPlayerPos(new_player, x, y, width, height);
+        new_player.on("click",onTop);
         $(".main-container").append(new_player);
         return new_player;
     }
@@ -204,10 +205,19 @@ var multi_stream_player = function (){
         menu.players.find('[value="' + id + '"]').remove();
     }
 
+    function onTop(ev){
+        $(".top").removeClass("top");
+        $(this).addClass("top");
+    }
+
     function mainUiEvents(){
-        
-        $(".menu").draggable({containment: "parent"});//.resizable({containment: "parent",handles:'e,s,w,ew,sw'});
-        $(".menu").find("button").button();
+
+        var menu_div = $(".menu");
+        menu_div.draggable({containment: "parent"});//.resizable({containment: "parent",handles:'e,s,w,ew,sw'});
+        menu_div.find("button").button();
+        menu_div.on("click",onTop);
+
+
         menuButtonControl("add");
 
         menu.add.on("click",function (ev){

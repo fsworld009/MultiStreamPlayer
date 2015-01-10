@@ -57,6 +57,10 @@ body {
   top: 10px;
 }
 
+.top {
+  z-index: 10;
+}
+
 
 .embed {
   @include fillout();
