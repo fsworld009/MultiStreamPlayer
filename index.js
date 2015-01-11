@@ -69,9 +69,10 @@ var multi_stream_player = function (){
         remove: $("#menu-remove"),
         save: $("#menu-save"),
         load: $("#menu-load"),
+        delete: $("#menu-delete"),
         players: $("#menu-players"),
         update_id: $("#menu-update-id"),
-        profiles: $("#menu-profiles")
+        profiles: $("#menu-profiles"),
     };
 
     function resetLocalStorage(){
@@ -168,7 +169,7 @@ var multi_stream_player = function (){
         });
     }
 
-    function save(profile_name){
+    function saveProfile(profile_name){
         //checkProfileName
         LocalStorageToJsObject();
         
@@ -205,10 +206,23 @@ var multi_stream_player = function (){
         });
     }
 
-    function load(profile_name){
+    function loadProfile(profile_name){
         player_id = 0;
         LocalStorageToJsObject();
         JsObjectToDom(profile_name);
+    }
+
+    function deleteProfile(profile_name){
+        LocalStorageToJsObject();
+        if(typeof local_storage[profile_name] !== "undefined"){
+            local_storage[profile_name] = undefined;
+        }
+        var pos = local_storage.profiles.indexOf(profile_name);
+        if(pos !== -1){
+            local_storage.profiles.splice(pos,1);
+        }
+        JsObjectToLocalStorage();
+        appendProfileList();
     }
 
     function appendPlayerList(player){
@@ -223,7 +237,7 @@ var multi_stream_player = function (){
     }
 
     function autoSave(){
-        $(window).unload(function(){save("[auto]");});
+        $(window).unload(function(){saveProfile("[auto]");});
     }
 
     function getPlayerInfo(player_id){
@@ -305,6 +319,7 @@ var multi_stream_player = function (){
         });
 
         menu.profiles.combobox();
+        menu.profile_input = $(".custom-combobox-input");
 
         menu.players.on("click", function (ev){
             var option = $(ev.target);
@@ -331,15 +346,25 @@ var multi_stream_player = function (){
         });
 
         menu.save.on("click", function(ev){
-            save($(".custom-combobox-input").val());
+            saveProfile(menu.profile_input.val());
         });
 
         menu.load.on("click", function(ev){
-            load(menu.profiles.val());
+            loadProfile(menu.profiles.val());
+        });
+
+        menu.delete.on("click", function(ev){
+            deleteProfile(menu.profiles.val());
+        });
+
+        menu.profile_input.on("input",function(ev){
+            console.log($(this).val());
         });
 
         
     }
+
+    function profileButtonControl(){}
 
     return {
         init: init
