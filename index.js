@@ -155,7 +155,8 @@ var multi_stream_player = function (){
     }
 
     function updateProfileList(new_profile){
-        if(local_storage.profiles.indexOf(new_profile) === -1){
+        console.log(new_profile);
+        if(local_storage.profiles.indexOf(new_profile) === -1 && new_profile !== "[auto]"){
             local_storage.profiles.push(new_profile);
         }
     }
@@ -218,6 +219,11 @@ var multi_stream_player = function (){
         mainUiEvents();
         LocalStorageToJsObject();
         appendProfileList();
+        autoSave();
+    }
+
+    function autoSave(){
+        $(window).unload(function(){save("[auto]");});
     }
 
     function getPlayerInfo(player_id){
