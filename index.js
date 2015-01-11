@@ -12,7 +12,6 @@ function getQueryString( paramName ){
 //iframeFix patch for resizable elements
 //http://stackoverflow.com/a/13473569/3973896
 function resizable_start(event, ui){
-    console.log("asdsa");
     $('<div class="ui-resizable-iframeFix" style="background: #fff;">&nbsp;</div>')
     .css({
         width:'100%', height: '100%',
@@ -166,7 +165,6 @@ var multi_stream_player = function (){
     }
 
     function updateProfileList(new_profile){
-        console.log(new_profile);
         if(local_storage.profiles.indexOf(new_profile) === -1 && new_profile !== "[auto]"){
             local_storage.profiles.push(new_profile);
         }
@@ -184,7 +182,6 @@ var multi_stream_player = function (){
         LocalStorageToJsObject();
         
         DomToJsObject(profile_name);
-        console.log(local_storage);
         updateProfileList(profile_name);
         appendProfileList();
         JsObjectToLocalStorage();
