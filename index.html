@@ -14,7 +14,9 @@
           <input id="menu-channel-url" size="15" name="channel_url" type="text" value=""/>
           <button id="menu-add">Add</button>
           <button id="menu-update">Update</button>
-          <button id="menu-remove">Remove</button><br>
+          <button id="menu-remove">Remove</button>
+          <button id="menu-save">Save</button>
+          <button id="menu-load">Load</button><br/>
           <label for="menu-player-x">X: </label>
           <input id="menu-player-x" size="5" name="player_x" type="text" value="10"/>
           <label for="menu-player-y">Y: </label>
@@ -39,6 +41,7 @@
       <iframe class="embed" data-src="twitch.html?channel={id}" frameborder="0" scrolling="no"></iframe>
     </div>
     <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="jquery.json.min.js"></script>
     <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
     <script src="index.js"></script>
   </body>

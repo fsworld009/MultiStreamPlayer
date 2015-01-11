@@ -56,8 +56,8 @@ function resizable_stop(event, ui){
 // }
 var multi_stream_player = function (){
     var player_id = 0;
-    var players_json = {players: []};
-
+    var players_json = {};
+    
     var menu = {
         channel_url : $("#menu-channel-url"),
         x: $("#menu-player-x"),
@@ -67,6 +67,8 @@ var multi_stream_player = function (){
         add: $("#menu-add"),
         update: $("#menu-update"),
         remove: $("#menu-remove"),
+        save: $("#menu-save"),
+        load: $("#menu-load"),
         players: $("#menu-players"),
         update_id: $("#menu-update-id")
     };
@@ -114,17 +116,61 @@ var multi_stream_player = function (){
         });
     }
 
-    function appendPlayerJSON(player){
-        players_json.players.push({
-            id: player.attr("id"),
-            //site:
-            channel: player.attr("data-channel"),
-            x: player.css("left"),
-            y: player.css("top"),
-            width: player.css("width"),
-            height: player.css("height")
-            //z-index
+    
+
+    function DomToJsObject(){
+        players_json = {players:[]};
+        
+        $(".player").each(function(index, player){
+            player = $(player);
+            players_json.players.push({
+                id: player.attr("id"),
+                //site:
+                channel: player.attr("data-channel"),
+                x: player.css("left").replace("px",""),
+                y: player.css("top").replace("px",""),
+                width: player.css("width").replace("px",""),
+                height: player.css("height").replace("px",""),
+                zindex: player.css("z-index")
+            });
         });
+        
+        var menu = $(".menu");
+        players_json.menu = {
+            x: menu.css("left"),
+            y: menu.css("top")
+            //z-index
+        };
+    }
+
+    function JsObjectToLocalStorage(){
+        localStorage.setItem("MultiStreamPlayer",$.toJSON(players_json));
+    }
+
+    function save(){
+        DomToJsObject();
+        JsObjectToLocalStorage();
+    }
+
+    function LocalStorageToJsObject(){
+        
+        players_json = $.parseJSON(localStorage.getItem("MultiStreamPlayer"));
+        console.log(players_json);
+    }
+
+    function JsObjectToDom(){
+        $(".player").remove();
+        //menu
+        $.each(players_json.players, function(index, player){
+            var new_player = addPlayer(player.channel, player.x, player.y, player.width, player.height);
+            new_player.css("z-index",player.zindex);
+
+        });
+    }
+
+    function load(){
+        LocalStorageToJsObject();
+        JsObjectToDom();
     }
 
     function appendPlayerList(player){
@@ -132,18 +178,7 @@ var multi_stream_player = function (){
         player_list.append('<option value="' + player.attr("id") + '">' + player.attr("data-channel") + '</option>');
     }
 
-    function updateMenuJSON(){
-        var menu = $(".menu");
-        players_json.menu = {
-            x: menu.css("left"),
-            y: menu.css("top")
-            //z-index
-        };
-
-    }
-
     function init(){
-        updateMenuJSON();
         mainUiEvents();
     }
 
@@ -222,7 +257,6 @@ var multi_stream_player = function (){
 
         menu.add.on("click",function (ev){
             var new_player = addPlayer(menu.channel_url.val(),menu.x.val(), menu.y.val(), menu.width.val(), menu.height.val()); //replace with parseUrl() later
-            appendPlayerJSON(new_player);
             appendPlayerList(new_player);
         });
 
@@ -248,6 +282,14 @@ var multi_stream_player = function (){
 
         menu.remove.on("click", function(ev){
             removePlayer(menu.update_id.val());
+        });
+
+        menu.save.on("click", function(ev){
+            save();
+        });
+
+        menu.load.on("click", function(ev){
+            load();
         });
 
         
