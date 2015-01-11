@@ -138,8 +138,8 @@ var multi_stream_player = function (){
         var menu = $(".menu");
         players_json.menu = {
             x: menu.css("left"),
-            y: menu.css("top")
-            //z-index
+            y: menu.css("top"),
+            zindex: menu.css("z-index")
         };
     }
 
@@ -153,29 +153,36 @@ var multi_stream_player = function (){
     }
 
     function LocalStorageToJsObject(){
-        
         players_json = $.parseJSON(localStorage.getItem("MultiStreamPlayer"));
-        console.log(players_json);
     }
 
     function JsObjectToDom(){
         $(".player").remove();
-        //menu
+        
+        var menu = $(".menu");
+        menu.css("left",players_json.menu.x);
+        menu.css("top",players_json.menu.y);
+        menu.css("z-index",players_json.menu.zindex);
+        
+        $(".players-option").remove();
+        
         $.each(players_json.players, function(index, player){
             var new_player = addPlayer(player.channel, player.x, player.y, player.width, player.height);
             new_player.css("z-index",player.zindex);
+            appendPlayerList(new_player);
+            
 
         });
     }
 
     function load(){
+        player_id = 0;
         LocalStorageToJsObject();
         JsObjectToDom();
     }
 
     function appendPlayerList(player){
-        var player_list = $("#menu-players");
-        player_list.append('<option value="' + player.attr("id") + '">' + player.attr("data-channel") + '</option>');
+        menu.players.append('<option class="players-option" value="' + player.attr("id") + '">' + player.attr("data-channel") + '</option>');
     }
 
     function init(){
