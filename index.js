@@ -178,6 +178,8 @@ var multi_stream_player = function (){
         updateProfileList(profile_name);
         appendProfileList();
         JsObjectToLocalStorage();
+
+        profileButtonControl();
     }
 
     function LocalStorageToJsObject(){
@@ -223,6 +225,8 @@ var multi_stream_player = function (){
         }
         JsObjectToLocalStorage();
         appendProfileList();
+        menu.profile_input.val("");
+        profileButtonControl();
     }
 
     function appendPlayerList(player){
@@ -233,6 +237,7 @@ var multi_stream_player = function (){
         mainUiEvents();
         LocalStorageToJsObject();
         appendProfileList();
+        profileButtonControl();
         autoSave();
     }
 
@@ -350,21 +355,55 @@ var multi_stream_player = function (){
         });
 
         menu.load.on("click", function(ev){
-            loadProfile(menu.profiles.val());
+            loadProfile(menu.profile_input.val());
         });
 
         menu.delete.on("click", function(ev){
-            deleteProfile(menu.profiles.val());
+            deleteProfile(menu.profile_input.val());
         });
 
         menu.profile_input.on("input",function(ev){
-            console.log($(this).val());
+            profileButtonControl();
+        });
+
+        $("#ui-id-1").on("click",function(ev){
+            profileButtonControl();
         });
 
         
     }
 
-    function profileButtonControl(){}
+    function profileButtonControl(){
+        var inputProfile = menu.profile_input.val();
+        if(inputProfile === "[auto]"){
+            menu.save.button("option","disabled",false);
+            menu.load.button("option","disabled",false);
+            menu.delete.button("option","disabled",true);
+            return;
+
+        }
+
+        if(inputProfile === ""){
+            menu.save.button("option","disabled",true);
+            menu.load.button("option","disabled",true);
+            menu.delete.button("option","disabled",true);
+            return;
+        }
+
+        if(local_storage.profiles.indexOf(inputProfile) === -1){
+            menu.save.button("option","disabled",false);
+            menu.load.button("option","disabled",true);
+            menu.delete.button("option","disabled",true);
+            return;
+        }else{
+            menu.save.button("option","disabled",false);
+            menu.load.button("option","disabled",false);
+            menu.delete.button("option","disabled",false);
+            return;
+        }
+            
+
+    }
 
     return {
         init: init
