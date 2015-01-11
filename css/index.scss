@@ -36,10 +36,15 @@ body {
   position: absolute;
   left: 40%;
   top: 40%;
-  width: 550px;
-  height: 200px;
+  width: 360px;
+  height: 260px;
   @include uiframe-border (#FF6347,#000);
+  line-height: 1px;
   z-index: 1;
+}
+
+.menu-inputs {
+  text-align: center;
 }
 
 .menu-container {

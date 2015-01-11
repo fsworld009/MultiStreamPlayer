@@ -22,14 +22,18 @@ body {
   position: absolute;
   left: 40%;
   top: 40%;
-  width: 550px;
-  height: 200px;
+  width: 360px;
+  height: 260px;
   background-color: #FF6347;
   /* make top border more clear*/
   border-width: 10px 3px 3px 3px;
   border-style: double solid solid solid;
   border-color: #000;
+  line-height: 1px;
   z-index: 1; }
+
+.menu-inputs {
+  text-align: center; }
 
 .menu-container {
   width: 100%;

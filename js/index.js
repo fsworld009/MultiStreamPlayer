@@ -133,7 +133,7 @@ var multi_stream_player = function (){
 
     
 
-    function DomToJsObject(profile_name){
+    function domToJsObject(profile_name){
         var new_profile = {players:[]};
         
         $(".player").each(function(index, player){
@@ -160,7 +160,7 @@ var multi_stream_player = function (){
         local_storage[profile_name] = new_profile;
     }
 
-    function JsObjectToLocalStorage(){
+    function jsObjectToLocalStorage(){
         localStorage.setItem("MultiStreamPlayer",$.toJSON(local_storage));
     }
 
@@ -179,24 +179,24 @@ var multi_stream_player = function (){
 
     function saveProfile(profile_name){
         //checkProfileName
-        LocalStorageToJsObject();
+        localStorageToJsObject();
         
-        DomToJsObject(profile_name);
+        domToJsObject(profile_name);
         updateProfileList(profile_name);
         appendProfileList();
-        JsObjectToLocalStorage();
+        jsObjectToLocalStorage();
 
         profileButtonControl();
     }
 
-    function LocalStorageToJsObject(){
+    function localStorageToJsObject(){
         local_storage = $.parseJSON(localStorage.getItem("MultiStreamPlayer"));
         if(local_storage === null){
             resetLocalStorage();
         }
     }
 
-    function JsObjectToDom(profile_name){
+    function jsObjectToDom(profile_name){
         $(".player").remove();
         
         var menu = $(".menu");
@@ -215,14 +215,25 @@ var multi_stream_player = function (){
         });
     }
 
+    function clearInputField(){
+        playerButtonControl(0);
+        menu.x.val("10");
+        menu.y.val("10");
+        menu.width.val("640");
+        menu.height.val("360");
+        menu.channel_url.val("");
+
+    }
+
     function loadProfile(profile_name){
         player_id = 0;
-        LocalStorageToJsObject();
-        JsObjectToDom(profile_name);
+        localStorageToJsObject();
+        jsObjectToDom(profile_name);
+        clearInputField();
     }
 
     function deleteProfile(profile_name){
-        LocalStorageToJsObject();
+        localStorageToJsObject();
         if(typeof local_storage[profile_name] !== "undefined"){
             local_storage[profile_name] = undefined;
         }
@@ -230,7 +241,7 @@ var multi_stream_player = function (){
         if(pos !== -1){
             local_storage.profiles.splice(pos,1);
         }
-        JsObjectToLocalStorage();
+        jsObjectToLocalStorage();
         appendProfileList();
         menu.profile_input.val("");
         profileButtonControl();
@@ -243,7 +254,7 @@ var multi_stream_player = function (){
 
     function init(){
         mainUiEvents();
-        LocalStorageToJsObject();
+        localStorageToJsObject();
         appendProfileList();
         profileButtonControl();
         playerButtonControl(0);

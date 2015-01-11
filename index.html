@@ -13,35 +13,45 @@
     <div class="main-container">
       <div class="menu">
         <div class="menu-container">
-          <label for="menu-channel-url">Twitch Channel Id</label>
-          <input id="menu-channel-url" size="15" name="channel_url" type="text" value=""/>
-          <button id="menu-add">Add</button>
-          <button id="menu-update">Update</button>
-          <button id="menu-remove">Remove</button><br>
-          <label for="menu-player-x">X: </label>
-          <input id="menu-player-x" size="5" name="player_x" type="text" value="10"/>
-          <label for="menu-player-y">Y: </label>
-          <input id="menu-player-y" size="5" name="player_y" type="text" value="10"/>
-          <label for="menu-player-width">Width: </label>
-          <input id="menu-player-width" size="5" name="player_width" type="text" value="640"/>
-          <label for="menu-player-height">Height: </label>
-          <input id="menu-player-height" size="5" name="player_height" type="text" value="360"/>
-          <select id="menu-players" size="5" name="players" multiple>
-            <!-- <option value="new_player">[New]</option> -->
-          </select>
-          <input type="hidden" id="menu-update-id"/>
+          <div class="menu-inputs">
+            <select id="menu-players" size="5" name="players" multiple>
+              <!-- <option value="new_player">[New]</option> -->
+            </select>
+          </div>
+          <p class="menu-inputs">
+            <label for="menu-channel-url">Twitch Channel Id</label>
+            <input id="menu-channel-url" size="25" name="channel_url" type="text" value=""/>
+          </p>
+          <p class="menu-inputs">
+            <label for="menu-player-x">X: </label>
+            <input id="menu-player-x" size="5" name="player_x" type="text" value="10"/>
+            <label for="menu-player-y">Y: </label>
+            <input id="menu-player-y" size="5" name="player_y" type="text" value="10"/>
+            <label for="menu-player-width">Width: </label>
+            <input id="menu-player-width" size="5" name="player_width" type="text" value="640"/>
+            <label for="menu-player-height">Height: </label>
+            <input id="menu-player-height" size="5" name="player_height" type="text" value="360"/>
+            <input type="hidden" id="menu-update-id"/>
+          </p>
+          <p class="menu-inputs">
+            <button id="menu-add">Add</button>
+            <button id="menu-update">Update</button>
+            <button id="menu-remove">Remove</button>
+          </p>
           
-          <br/>
-          <!-- <label for="menu-name">Profile Name:</label> -->
-          <!-- <input id="menu-profile-name" type="text" size="15" ><br> -->
-          <label for="menu-profiles">Profile Name</label>
-          <select id="menu-profiles" size="10">
-            <option value="[auto]">[auto]</option>
-          </select>
-          <span style="position:relative;z-index:-10;padding-right:30px"> </span>
-          <button id="menu-save">Save</button>
-          <button id="menu-load">Load</button>
-          <button id="menu-delete">Delete</button><br/>
+          <p class="menu-inputs">
+            <!-- <label for="menu-name">Profile Name:</label> -->
+            <!-- <input id="menu-profile-name" type="text" size="15" ><br> -->
+            <label for="menu-profiles">Profile Name</label>
+            <select id="menu-profiles" size="10">
+              <option value="[auto]" selected>[auto]</option>
+            </select>
+          </p>
+          <p class="menu-inputs">
+            <button id="menu-save">Save</button>
+            <button id="menu-load">Load</button>
+            <button id="menu-delete">Delete</button>
+          </p>
         </div>
       </div>
       
