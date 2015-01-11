@@ -306,7 +306,6 @@ var multi_stream_player = function (){
         }
         setPlayerPos(player, x,y,width,height);
 
-        // updatePlayerJSON(player);
 
     }
 
@@ -358,7 +357,10 @@ var multi_stream_player = function (){
         });
 
         menu.remove.on("click", function(ev){
-            removePlayer(menu.update_id.val());
+            $.each(menu.players.multiselect("getChecked"), function(index, player){
+                removePlayer(player.value);
+            });
+            menu.players.multiselect("refresh");
         });
 
         menu.save.on("click", function(ev){
