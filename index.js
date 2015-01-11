@@ -76,7 +76,17 @@ var multi_stream_player = function (){
     };
 
     function resetLocalStorage(){
-        local_storage= {profiles : []};
+        local_storage= {
+            profiles : [],
+            __auto: {
+                players: {},
+                menu: {
+                    x: "100px",
+                    y: "100px",
+                    zindex: "1"
+                }
+            }
+        };
     }
 
     
