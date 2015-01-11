@@ -238,6 +238,7 @@ var multi_stream_player = function (){
 
     function appendPlayerList(player){
         menu.players.append('<option class="players-option" value="' + player.attr("id") + '">' + player.attr("data-channel") + '</option>');
+        menu.players.multiselect("refresh");
     }
 
     function init(){
@@ -245,6 +246,7 @@ var multi_stream_player = function (){
         LocalStorageToJsObject();
         appendProfileList();
         profileButtonControl();
+        playerButtonControl(0);
         autoSave();
     }
 
@@ -264,20 +266,23 @@ var multi_stream_player = function (){
         menu.update_id.val( player.attr("id") );
     }
 
-    function menuButtonControl(mode){
-        switch(mode){
-        case "add":
+    function playerButtonControl(num_of_select_players){
+        switch(num_of_select_players){
+        case 0:
             menu.add.button("option","disabled",false);
             menu.update.button("option","disabled",true);
             menu.remove.button("option","disabled",true);
             return;
-        case "update":
+        case 1:
             menu.add.button("option","disabled",true);
             menu.update.button("option","disabled",false);
             menu.remove.button("option","disabled",false);
             return;
-        case "multiple_selection":
-           // 
+        default:
+            menu.add.button("option","disabled",true);
+            menu.update.button("option","disabled",true);
+            menu.remove.button("option","disabled",false);
+            return;
         }
     }
 
@@ -322,8 +327,7 @@ var multi_stream_player = function (){
         menu_div.find("button").button();
         menu_div.on("click",onTop);
 
-
-        menuButtonControl("add");
+        menu.players.multiselect({noneSelectedText: "Select Player(s)"});
 
         menu.add.on("click",function (ev){
             var new_player = addPlayer(menu.channel_url.val(),menu.x.val(), menu.y.val(), menu.width.val(), menu.height.val()); //replace with parseUrl() later
@@ -333,20 +337,20 @@ var multi_stream_player = function (){
         menu.profiles.combobox();
         menu.profile_input = $(".custom-combobox-input");
 
-        menu.players.on("click", function (ev){
-            var option = $(ev.target);
-            if(ev.target.value === "new_player"){
-                clearMenuOptions();
-                menuButtonControl("add");
+        menu.players.on("change", function (ev){
+            var checked_players = $(this).multiselect("getChecked");
+            console.log(checked_players);
+            playerButtonControl(checked_players.length);
+            switch(checked_players.length){
+            case 0:
+                return;
+            case 1:
+                getPlayerInfo(checked_players[0].value);
+                return;
+            default:
                 return;
             }
-
-
             
-            if( option.prop("tagName").toLowerCase() === "option"){
-                menuButtonControl("update");
-                getPlayerInfo(option.val());
-            }
         });
 
         menu.update.on("click", function(ev){
