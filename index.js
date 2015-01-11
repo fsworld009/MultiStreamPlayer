@@ -71,7 +71,6 @@ var multi_stream_player = function (){
         load: $("#menu-load"),
         players: $("#menu-players"),
         update_id: $("#menu-update-id"),
-        profile_name: $("#menu-profile-name"),
         profiles: $("#menu-profiles")
     };
 
@@ -299,6 +298,8 @@ var multi_stream_player = function (){
             appendPlayerList(new_player);
         });
 
+        menu.profiles.combobox();
+
         menu.players.on("click", function (ev){
             var option = $(ev.target);
             if(ev.target.value === "new_player"){
@@ -324,7 +325,7 @@ var multi_stream_player = function (){
         });
 
         menu.save.on("click", function(ev){
-            save(menu.profile_name.val());
+            save($(".custom-combobox-input").val());
         });
 
         menu.load.on("click", function(ev){

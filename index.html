@@ -1,10 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8"/>
     <title>Multi Stream Player</title>
     <link href="http://code.jquery.com/ui/1.11.2/themes/redmond/jquery-ui.css" rel="stylesheet">
     <link href="index.css" rel="stylesheet">
+    <link href="combobox.css" rel="stylesheet">
   </head>
   <body>
     <div class="main-container">
@@ -29,12 +30,13 @@
           <input type="hidden" id="menu-update-id"/>
           
           <br/>
-          <label for="menu-name">Profile Name:</label>
-          <input id="menu-profile-name" type="text" size="15" ><br>
+          <!-- <label for="menu-name">Profile Name:</label> -->
+          <!-- <input id="menu-profile-name" type="text" size="15" ><br> -->
           <label for="menu-profiles">Profiles</label>
-          <select id="menu-profiles">
+          <select id="menu-profiles" size="10">
             <option value="__auto">[auto]</option>
           </select>
+          <span style="position:relative;z-index:-10;padding-right:30px"> </span>
           <button id="menu-save">Save</button>
           <button id="menu-load">Load</button>
           <button id="menu-delete">Delete</button><br/>
@@ -49,6 +51,7 @@
     <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="jquery.json.min.js"></script>
     <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+    <script src="combobox.js"></script>
     <script src="index.js"></script>
   </body>
   
