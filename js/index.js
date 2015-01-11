@@ -249,7 +249,7 @@ var multi_stream_player = function (){
     }
 
     function autoSave(){
-        $(window).unload(function(){saveProfile("[auto]");});
+        window.onbeforeunload = function(ev){saveProfile("[auto]");};
     }
 
     function getPlayerInfo(player_id){
