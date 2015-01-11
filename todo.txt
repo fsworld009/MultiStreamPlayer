@@ -1,5 +1,6 @@
 player.html
 on window size change -> prevent chat div from out of bound
+save player status
 
 index.html:
 when click on a div, set its z-index to highest
@@ -10,3 +11,5 @@ save z-index in json
 handle multi-selection for removing multiple channels
 
 update&remove channel: update JSON as also
+
+input error checking

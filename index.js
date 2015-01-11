@@ -131,13 +131,14 @@ var multi_stream_player = function (){
             player = $(player);
             new_profile.players.push({
                 id: player.attr("id"),
-                //site:
+                site: "twitch", //future update
                 channel: player.attr("data-channel"),
                 x: player.css("left").replace("px",""),
                 y: player.css("top").replace("px",""),
                 width: player.css("width").replace("px",""),
                 height: player.css("height").replace("px",""),
-                zindex: player.css("z-index")
+                zindex: player.css("z-index"),
+                player: {} //future update
             });
         });
         
