@@ -186,17 +186,17 @@ var multi_stream_player = function (){
         }
     }
 
-    function JsObjectToDom(){
+    function JsObjectToDom(profile_name){
         $(".player").remove();
         
         var menu = $(".menu");
-        menu.css("left",players_json.menu.x);
-        menu.css("top",players_json.menu.y);
-        menu.css("z-index",players_json.menu.zindex);
+        menu.css("left",local_storage[profile_name].menu.x);
+        menu.css("top",local_storage[profile_name].menu.y);
+        menu.css("z-index",local_storage[profile_name].menu.zindex);
         
         $(".players-option").remove();
         
-        $.each(players_json.players, function(index, player){
+        $.each(local_storage[profile_name].players, function(index, player){
             var new_player = addPlayer(player.channel, player.x, player.y, player.width, player.height);
             new_player.css("z-index",player.zindex);
             appendPlayerList(new_player);
@@ -205,10 +205,10 @@ var multi_stream_player = function (){
         });
     }
 
-    function load(){
+    function load(profile_name){
         player_id = 0;
         LocalStorageToJsObject();
-        JsObjectToDom();
+        JsObjectToDom(profile_name);
     }
 
     function appendPlayerList(player){
@@ -217,6 +217,8 @@ var multi_stream_player = function (){
 
     function init(){
         mainUiEvents();
+        LocalStorageToJsObject();
+        appendProfileList();
     }
 
     function getPlayerInfo(player_id){
@@ -326,7 +328,7 @@ var multi_stream_player = function (){
         });
 
         menu.load.on("click", function(ev){
-            load();
+            load(menu.profiles.val());
         });
 
         
